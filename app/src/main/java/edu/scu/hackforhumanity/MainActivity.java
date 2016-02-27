@@ -6,12 +6,17 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
+    private EditText email_id;
+    private EditText password_id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,5 +59,47 @@ public class MainActivity extends AppCompatActivity {
     {
         Intent registerIntent = new Intent(MainActivity.this, RegisterActivity.class);
         startActivity(registerIntent);
+    }
+
+
+    public final static boolean isValidEmail(CharSequence target) {
+        if (TextUtils.isEmpty(target)) {
+            return false;
+        } else {
+            return android.util.Patterns.EMAIL_ADDRESS.matcher(target).matches();
+        }
+    }
+
+
+
+
+    public void loginAction(View view)
+    {
+        email_id = (EditText)findViewById(R.id.login_email_editText);
+        password_id = (EditText)findViewById(R.id.login_password_editText);
+
+        String login_email = email_id.getText().toString().trim();
+        String login_password = password_id.getText().toString().trim();
+        // edit text empty validation
+        if(login_email.isEmpty()|| login_password.isEmpty())
+        {
+            if(login_email.isEmpty())
+            {
+                email_id.setError("Cannot be empty");
+            }
+            else if(login_password.isEmpty())
+            {
+                password_id.setError("Cannot be empty");
+            }
+        }
+        else if(!isValidEmail(login_email))
+        {
+            email_id.setError("Invalid format");
+        }
+        else
+        {
+            Toast.makeText(MainActivity.this," all good", Toast.LENGTH_SHORT).show();
+        }
+
     }
 }

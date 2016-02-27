@@ -96,7 +96,7 @@ public class RegisterActivity extends AppCompatActivity {
         return pstatus;
     }
 
-    public void registerAction()
+    public void registerAction(View view)
     {
         //fetch all edit text values
         name_id = (EditText)findViewById(R.id.register_name_editText);
@@ -142,13 +142,17 @@ public class RegisterActivity extends AppCompatActivity {
         {
             email_id.setError("Invalid format");
         }
+        else if(!minCharsValidation(pass) || !minCharsValidation(pass_confirmation))
+        {
+            password_id.setError("min 8 characters");
+        }
         else if(!checkPasswordAndConfirmPassword(pass, pass_confirmation))
         {
             passwordConfirmation_id.setError("password does not match");
         }
         else
         {
-            Toast.makeText(RegisterActivity.this," all good", Toast.LENGTH_SHORT);
+            Toast.makeText(RegisterActivity.this," all good", Toast.LENGTH_SHORT).show();
         }
 
 
