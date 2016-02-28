@@ -36,6 +36,8 @@ public class ListAdapter extends BaseAdapter {
 	static class ViewHolderItem {
 		TextView name;
 		TextView code;
+		TextView zip;
+		TextView phone;
 	}
 
 	@Override
@@ -47,7 +49,9 @@ public class ListAdapter extends BaseAdapter {
 	        
 	        holder.name = (TextView) convertView.findViewById(R.id.name);
 	        holder.code = (TextView) convertView.findViewById(R.id.code);
-	        
+	        holder.zip = (TextView) convertView.findViewById(R.id.cell_zip_textView);
+	        holder.phone = (TextView) convertView.findViewById(R.id.cell_phone_textView);
+
 	        convertView.setTag(holder);
 		}
 		else
@@ -58,7 +62,9 @@ public class ListAdapter extends BaseAdapter {
 		
 		holder.name.setText(this.main.countries.get(position).Name);
 		holder.code.setText(this.main.countries.get(position).Items);
-		
+		holder.zip.setText(this.main.countries.get(position).Location);
+		holder.phone.setText(this.main.countries.get(position).PhoneNo);
+
 		return convertView;
 	}
 
