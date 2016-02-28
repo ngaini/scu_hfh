@@ -5,4 +5,5 @@
     <string name="title_activity_list">DonateMe</string>
     <string name="title_activity_location">LocationActivity</string>
     <string name="action_logout">Logout</string>
+    <string name="title_activity_detail">DetailActivity</string>
 </resources>

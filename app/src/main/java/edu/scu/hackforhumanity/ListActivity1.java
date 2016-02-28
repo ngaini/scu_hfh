@@ -116,14 +116,18 @@ public class ListActivity1 extends AppCompatActivity implements Download_data.do
 
 
 					//if want to call default sms applicaiton
-					Intent smsIntent = new Intent(Intent.ACTION_VIEW);
-					smsIntent.setType("vnd.android-dir/mms-sms");
-					smsIntent.putExtra("address", phone_value);
-
-					startActivity(smsIntent);
+//					Intent smsIntent = new Intent(Intent.ACTION_VIEW);
+//					smsIntent.setType("vnd.android-dir/mms-sms");
+//					smsIntent.putExtra("address", phone_value);
+//					smsIntent.putExtra("sms_body","I will be able to help you with "+need_value+" meet me at <Time and Location >");
+//					startActivity(smsIntent);
 
 					//if want to call another activity
-
+					Intent myIntent = new Intent(ListActivity1.this, DetailActivity.class);
+					myIntent.putExtra("name", name_value);
+					myIntent.putExtra("need", need_value);
+					myIntent.putExtra("phone", phone_value);
+					startActivity(myIntent);
 
 					Toast.makeText(getApplicationContext(), phone_id.getText().toString()+" ::"+zip_id.getText().toString()+" ::"+name_id.getText().toString()+" ::"+need_id.getText().toString()+" ::"+position,
 							Toast.LENGTH_SHORT).show();

@@ -157,7 +157,7 @@ public class RegisterActivity extends AppCompatActivity {
         }
         else
         {
-            Toast.makeText(RegisterActivity.this," all good", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(RegisterActivity.this," all good", Toast.LENGTH_SHORT).show();
 
             initializeRequestQueue(email,name,phone,pass);
 
