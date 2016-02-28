@@ -129,8 +129,8 @@ public class ListActivity1 extends AppCompatActivity implements Download_data.do
 					myIntent.putExtra("phone", phone_value);
 					startActivity(myIntent);
 
-					Toast.makeText(getApplicationContext(), phone_id.getText().toString()+" ::"+zip_id.getText().toString()+" ::"+name_id.getText().toString()+" ::"+need_id.getText().toString()+" ::"+position,
-							Toast.LENGTH_SHORT).show();
+//					Toast.makeText(getApplicationContext(), phone_id.getText().toString()+" ::"+zip_id.getText().toString()+" ::"+name_id.getText().toString()+" ::"+need_id.getText().toString()+" ::"+position,
+//							Toast.LENGTH_SHORT).show();
 				}
 			});
 		}

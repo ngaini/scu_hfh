@@ -103,7 +103,7 @@ public class DetailActivity extends AppCompatActivity {
         }
         else
         {
-            String msgString= "You are being assisted with"+need+".\nDetails:\n Date:"+date+" Time:"+time+"\nLocation:"+location;
+            String msgString= "You are being assisted with "+need+".\nDetails:\n Date:"+date+" Time:"+time+"\nLocation: "+location;
             Intent smsIntent = new Intent(Intent.ACTION_VIEW);
             smsIntent.setType("vnd.android-dir/mms-sms");
             smsIntent.putExtra("address", phone);
