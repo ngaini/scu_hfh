@@ -7,11 +7,27 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -99,6 +115,50 @@ public class MainActivity extends AppCompatActivity {
         else
         {
             Toast.makeText(MainActivity.this," all good", Toast.LENGTH_SHORT).show();
+
+
+            insertIntoDb(login_email,login_password);
+        }
+
+    }
+
+    /**
+     * insert into php database using api call
+     * @param login_email
+     * @param login_password
+     */
+    private void insertIntoDb(String login_email, String login_password) {
+
+        String email=login_email;
+        String password = login_password;
+//        String link = "http://aabtech.us/HFH/register.php?email="+email+"&name=abhishek&phone=1234567&password="+password;
+//        Log.e("DB", ""+link);
+
+
+        HttpClient client =  new DefaultHttpClient();
+        HttpPost http_post = new HttpPost("http://aabtech.us/HFH/login.php?");
+
+        //Post data
+        List<NameValuePair> nameValuePair = new ArrayList<NameValuePair>(2);
+        nameValuePair.add(new BasicNameValuePair("email", email));
+        nameValuePair.add(new BasicNameValuePair("password", password));
+
+
+        try {
+            //encoding POST data
+            http_post.setEntity(new UrlEncodedFormEntity(nameValuePair));
+
+            //making POST request
+            HttpResponse response = client.execute(http_post);
+            Log.d("Http Post Response:", response.toString());
+            HttpEntity entity = response.getEntity();
+            Log.e("entity", "entity value is :"+entity);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        } catch (ClientProtocolException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
     }

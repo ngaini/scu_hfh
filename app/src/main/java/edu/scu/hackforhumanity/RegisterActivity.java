@@ -153,6 +153,9 @@ public class RegisterActivity extends AppCompatActivity {
         else
         {
             Toast.makeText(RegisterActivity.this," all good", Toast.LENGTH_SHORT).show();
+
+
+
         }
 
 
