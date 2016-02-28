@@ -172,7 +172,7 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), response, Toast.LENGTH_LONG).show();
                         if(response.matches("LOGIN_SUCCESS"))
                         {
-                            Intent intent = new Intent(MainActivity.this,ListActivity.class );
+                            Intent intent = new Intent(MainActivity.this,ListActivity1.class );
                             startActivity(intent);
                         }
                     }

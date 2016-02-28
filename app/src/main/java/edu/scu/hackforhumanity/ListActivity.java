@@ -49,14 +49,6 @@ public class ListActivity extends android.app.ListActivity {
         list_elements.add(new String[] {"9517536210","makaan maangta"});
         list_elements.add(new String[]{"1023456789", "item maangta"});
         list_elements.add(new String[] {"9087456321","roti maangta"});
-        list_elements.add(new String[] {"1597534560","kapda maangta"});
-        list_elements.add(new String[] {"9517536210","makaan maangta"});
-        list_elements.add(new String[]{"1023456789", "item maangta"});
-        list_elements.add(new String[] {"9087456321","roti maangta"});
-        list_elements.add(new String[] {"1597534560","kapda maangta"});
-        list_elements.add(new String[] {"9517536210","makaan maangta"});
-        list_elements.add(new String[]{"1023456789", "item maangta"});
-        list_elements.add(new String[] {"9087456321","roti maangta"});
 //        ArrayAdapter<String[]> listView = new ArrayAdapter<String[]>(this, android.R.layout.simple_expandable_list_item_2,android.R.id.text1, list_elements)
 //        {
 //            @Override
