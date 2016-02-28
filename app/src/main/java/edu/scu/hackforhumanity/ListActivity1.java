@@ -8,6 +8,7 @@ import java.util.Locale;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 //import com.example.listview_load_data_from_json.R;
 //import com.kaleidosstudio.listview_load_data_from_json.Download_data.download_complete;
@@ -15,6 +16,7 @@ import org.json.JSONObject;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Criteria;
@@ -25,7 +27,10 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -72,7 +77,7 @@ public class ListActivity1 extends Activity implements Download_data.download_co
 			onLocationChanged(location);
 			Toast.makeText(ListActivity1.this, ""+zipCode, Toast.LENGTH_SHORT);
 		} else {
-//			Toast.makeText(ListActivity1.this, "Network Issues unable to fetch Loaction", Toast.LENGTH_SHORT);
+			Toast.makeText(ListActivity1.this, "Network Issues unable to fetch Loaction", Toast.LENGTH_SHORT);
 //			latituteField.setText("Location not available");
 //			longitudeField.setText("Location not available");
 		}
@@ -83,7 +88,43 @@ public class ListActivity1 extends Activity implements Download_data.download_co
 		{
 			Download_data download_data = new Download_data((Download_data.download_complete) this);
 			download_data.download_data_from_link("http://aabtech.us/HFH/findpeople.php?pin="+zipCode);
-			Log.e("URLTHIS","http://aabtech.us/HFH/findpeople.php?pin="+zipCode);
+			Log.e("URLTHIS", "http://aabtech.us/HFH/findpeople.php?pin=" + zipCode);
+
+//			list.setOnClickListener(new AdapterView.OnItemClickListener() {
+//				@Override
+//				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//					TextView need_value=(TextView)findViewById(R.id.code);
+//				}
+//			});
+			list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+				@Override
+				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+//					//fetch values of the item selected
+					TextView need_id = (TextView)view.findViewById(R.id.code);
+					TextView name_id = (TextView)view.findViewById(R.id.name);
+					TextView zip_id = (TextView)view.findViewById(R.id.cell_zip_textView);
+					TextView phone_id = (TextView)view.findViewById(R.id.cell_phone_textView);
+					String name_value =name_id.getText().toString();
+					String need_value = need_id.getText().toString();
+					String zip_value = zip_id.getText().toString();
+					String phone_value = phone_id.getText().toString();
+
+
+					//if want to call default sms applicaiton
+					Intent smsIntent = new Intent(Intent.ACTION_VIEW);
+					smsIntent.setType("vnd.android-dir/mms-sms");
+					smsIntent.putExtra("address", phone_value);
+
+					startActivity(smsIntent);
+
+					//if want to call another activity
+
+
+					Toast.makeText(getApplicationContext(), phone_id.getText().toString()+" ::"+zip_id.getText().toString()+" ::"+name_id.getText().toString()+" ::"+need_id.getText().toString()+" ::"+position,
+							Toast.LENGTH_SHORT).show();
+				}
+			});
 		}
 		else
 		{
