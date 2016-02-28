@@ -1,6 +1,7 @@
 package edu.scu.hackforhumanity;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -14,6 +15,10 @@ import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -23,11 +28,18 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -114,13 +126,67 @@ public class MainActivity extends AppCompatActivity {
         }
         else
         {
-            Toast.makeText(MainActivity.this," all good", Toast.LENGTH_SHORT).show();
 
-
-            insertIntoDb(login_email,login_password);
+            initializeRequestQueue(login_email,login_password);
+////            Toast.makeText(MainActivity.this," all good", Toast.LENGTH_SHORT).show();
+//            String link ="http://aabtech.us/HFH/register.php?email="+login_email+"&name=abhishek&phone=1234567&password="+login_password;
+//            JsonObjectRequest request = new JsonObjectRequest(link, null,
+//                    new Response.Listener<JSONObject>() {
+//
+//                        @Override
+//                        public void onResponse(JSONObject response) {
+//
+////                            mTextView.setText(response.toString());
+//                            Toast.makeText(MainActivity.this,response.toString(),Toast.LENGTH_LONG).show();
+//                        }
+//
+//                    },
+//
+//                    new Response.ErrorListener() {
+//
+//                        @Override
+//                        public void onErrorResponse(VolleyError error) {
+////                            mTextView.setText(error.toString());
+//                            Toast.makeText(MainActivity.this,error.toString(),Toast.LENGTH_LONG).show();
+//                        }
+//                    }
+//            );
+//            VolleyApplication.getInstance().getRequestQueue().add(request);
+//
+////            insertIntoDb(login_email,login_password);
         }
 
     }
+
+    private void initializeRequestQueue(String email,String password) {
+        String url = "http://aabtech.us/HFH/login.php?email="+email+"&password="+password;
+
+        // Request a string response from the provided URL.
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        // Display the first 500 characters of the response string.
+                        //TextView responseMessage = new TextView(getApplicationContext());
+                        //responseMessage.setText("Response is: "+ response);
+                        Toast.makeText(getApplicationContext(), response, Toast.LENGTH_LONG).show();
+                        if(response.matches("LOGIN_SUCCESS"))
+                        {
+                            Intent intent = new Intent(MainActivity.this,ListActivity.class );
+                            startActivity(intent);
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(MainActivity.this,"Nahi Chala",Toast.LENGTH_LONG);
+            }
+        });
+        // Add the request to the RequestQueue.
+        TapHelpRequestQueue.getInstance(this).addToRequestQueue(stringRequest);
+    }
+
+
 
     /**
      * insert into php database using api call
@@ -129,37 +195,6 @@ public class MainActivity extends AppCompatActivity {
      */
     private void insertIntoDb(String login_email, String login_password) {
 
-        String email=login_email;
-        String password = login_password;
-//        String link = "http://aabtech.us/HFH/register.php?email="+email+"&name=abhishek&phone=1234567&password="+password;
-//        Log.e("DB", ""+link);
-
-
-        HttpClient client =  new DefaultHttpClient();
-        HttpPost http_post = new HttpPost("http://aabtech.us/HFH/login.php?");
-
-        //Post data
-        List<NameValuePair> nameValuePair = new ArrayList<NameValuePair>(2);
-        nameValuePair.add(new BasicNameValuePair("email", email));
-        nameValuePair.add(new BasicNameValuePair("password", password));
-
-
-        try {
-            //encoding POST data
-            http_post.setEntity(new UrlEncodedFormEntity(nameValuePair));
-
-            //making POST request
-            HttpResponse response = client.execute(http_post);
-            Log.d("Http Post Response:", response.toString());
-            HttpEntity entity = response.getEntity();
-            Log.e("entity", "entity value is :"+entity);
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        } catch (ClientProtocolException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
     }
 }

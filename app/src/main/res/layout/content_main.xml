@@ -56,7 +56,7 @@
             android:layout_marginLeft="20dp"
             android:id="@+id/login_password_editText"
             android:inputType="textPassword"
-            android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz#!*"
+            android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz#!*0123456789"
             android:maxLength="20"/>
     </LinearLayout>
 

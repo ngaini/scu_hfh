@@ -11,6 +11,11 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+
 public class RegisterActivity extends AppCompatActivity {
 
 
@@ -154,7 +159,7 @@ public class RegisterActivity extends AppCompatActivity {
         {
             Toast.makeText(RegisterActivity.this," all good", Toast.LENGTH_SHORT).show();
 
-
+            initializeRequestQueue(email,name,phone,pass);
 
         }
 
@@ -163,6 +168,36 @@ public class RegisterActivity extends AppCompatActivity {
 
 
     }
+
+
+    private void initializeRequestQueue(String email,String name,String phone,String pass) {
+        String url = "http://aabtech.us/HFH/register.php?email="+email+"&name="+name+"&phone="+phone+"&password="+pass;
+
+        // Request a string response from the provided URL.
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        // Display the first 500 characters of the response string.
+                        //TextView responseMessage = new TextView(getApplicationContext());
+                        //responseMessage.setText("Response is: "+ response);
+                        Toast.makeText(getApplicationContext(), response, Toast.LENGTH_LONG).show();
+                        if(response.matches("REG_SUCCESS") )
+                        {
+                            Intent loginIntent = new Intent(RegisterActivity.this, MainActivity.class);
+                            startActivity(loginIntent);
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(RegisterActivity.this,"Nahi Chala",Toast.LENGTH_LONG);
+            }
+        });
+        // Add the request to the RequestQueue.
+        TapHelpRequestQueue.getInstance(this).addToRequestQueue(stringRequest);
+    }
+
 
 
 }
