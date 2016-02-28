@@ -31,7 +31,7 @@
             android:layout_height="50dp"
             android:layout_marginLeft="20dp"
             android:id="@+id/register_name_editText"
-            android:inputType="textPersonName"
+            android:inputType="textPersonName|textCapSentences"
             android:maxLength="20"
             android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-"
             android:hint="First name"
